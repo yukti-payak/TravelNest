@@ -70,7 +70,9 @@ const sessionOptions = {
 //   app.get("/" ,(req,res) =>{
 //     res.send("welcome to route");
 // });
-
+app.get("/", (req, res)=>{
+  res.redirect("/listings");
+})
 app.use(session(sessionOptions));
 app.use(flash());
 app.use(passport.initialize());
