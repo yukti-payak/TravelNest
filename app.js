@@ -88,7 +88,7 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   ``;
   // console.log(res.locals.successMsg);
-  next();
+  next(); // if we failed to write this then the page will stuck!
 });
 // app.get("/testListing",async (req,res) =>{
 //     let sampleListing = new Listing({
@@ -106,7 +106,7 @@ app.use((req, res, next) => {
 // app.get("/demouser" ,async(req,res) =>{
 //     let fakeuser =  new User({
 //         email:"abc@gmail.com",
-//         username:"abc"
+//         username:"sudhirrathod_05"
 //     });
 //     let registeredUser = await User.register(fakeuser,"helloworld");
 //     res.send(registeredUser);
