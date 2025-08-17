@@ -1,4 +1,9 @@
 <% layout("/layouts/boilerplate") %>
+<script>
+  const mapToken ="<%= process.env.MAP_TOKEN %>";
+   const listing = <%- JSON.stringify(listing) %>;
+  
+</script>
 <div class="row mt-3">
     <!-- <div class="col-8 offset-3"> -->
     <h3 class="fs-5 text-center"><%= listing.title %></h3>
@@ -35,8 +40,8 @@
 <div class="container-fluid px-0">
   <div class="row">
     <div class="col-12 col-md-6 offset-md-3 mb-3 px-3">
-      <hr>
       <% if(currUser) { %>
+        <hr />
         <h4>Leave a Review</h4>
         <form method="POST" action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation">
           
@@ -66,13 +71,13 @@
           <br>
           <button class="btn btn-outline-dark">Submit</button>
         </form>
-        <hr />
       <% } %>
 
   <!-- Styling reviews using bootstrap -->
-    <p><b>Reviews Details </b></p>
+  <% if(listing.reviews.length > 0) { %>
 <div class="container my-4">
     <div class="row g-4">
+        <p><b>Reviews Details </b></p>
         <% for (review of listing.reviews) { %>
             <div class="col-12 col-sm-6 col-lg-4 d-flex">
                 <div class="card shadow-sm flex-fill h-100">
@@ -90,10 +95,13 @@
             </div>
         <% } %>
     </div>
+    <% } %>
 </div>
-
-
+<div class="col-8 offset-3 mb-3">
+  <h3>Where you'll be</h3>
+  <div id="map"></div>
+</div>
     </div>
   </div>
 </div>
-<!-- <div id="map" style="height: 400px; width: 100%;"></div> -->
+<script src="/js/map.js"></script>
