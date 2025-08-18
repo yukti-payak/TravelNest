@@ -112,7 +112,20 @@ body {
 }
 
 /* Map Styling  */
+/* #map {
+ height: 400px;
+  width: 80vh;
+ }  */
+
+/* Map Styling Fix */
 #map {
   height: 400px;
-  width: 80vh;
- }
+  width: 100%; /* CHANGED: Was 80vh, which breaks layout on mobile */
+}
+
+/* Responsive Button Fix */
+.btns {
+  display: flex;
+  gap: 0.5rem; /* ADDED: Adds space between Edit/Delete buttons */
+  align-items: center;
+}
