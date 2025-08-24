@@ -5,15 +5,15 @@
 </script>
 
 <div class="row mt-3">
-  <div class="col-11 col-md-8 offset-md-2 mx-auto">
+  <div class="col-11 col-md-6 offset-md-3 mx-auto">
     <h3 class="fs-4 mb-3"><%= listing.title %></h3>
 
-    <div class="card show-card listing-card shadow-sm">
+    <div class="card show-card listing-card">
       <img
         src="<%= listing.image.url %>"
         class="card-img-top show-img"
         alt="listing_image"
-      />
+        style="max-height: 45vh; object-fit: cover;" />
       <div class="card-body mt-3">
         <p class="card-text"><b>Owned By: <%= listing.owner.username %></b></p>
         <p class="card-text"><%= listing.description %></p>
@@ -71,34 +71,34 @@
     <hr />
     <% } %>
 
-    <% if(listing.reviews.length > 0) { %>
-    <div class="my-3">
-      <h4><b>All Reviews</b></h4>
-      <div class="row">
-        <% for (review of listing.reviews) { %>
+   <% if(listing.reviews.length > 0) { %>
+  <div class="my-3">
+    <h4 class="text-center"><b>All Reviews</b></h4>
+    <div class="row justify-content-center">
+      <% for (review of listing.reviews) { %>
         <div class="col-12 col-md-6 mb-3">
           <div class="card h-100">
-            <div class="card-body">
+            <div class="card-body p-4">
               <h6 class="card-title">@<%= review.author.username %></h6>
               <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
               <p class="card-text"><%= review.comment %></p>
             </div>
-            <div class="card-footer bg-transparent border-0">
-                <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                    <button class="btn btn-sm btn-dark">Delete</button>
-                </form>
+            <div class="card-footer bg-transparent border-0 px-4 pb-3">
+              <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                <button class="btn btn-sm btn-dark">Delete</button>
+              </form>
             </div>
           </div>
         </div>
-        <% } %>
-      </div>
+      <% } %>
     </div>
-    <hr>
-    <% } %>
+  </div>
+  <hr>
+<% } %>
 
     <div class="my-3">
       <h3>Where you'll be</h3>
-      <div id="map"></div>
+      <div id="map" style="height: 300px; width: 100%;"></div>
     </div>
   </div>
 </div>

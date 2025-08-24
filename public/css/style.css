@@ -119,7 +119,7 @@ body {
 
 /* Map Styling Fix */
 #map {
-  height: 400px;
+  height: 300px;
   width: 100%; /* CHANGED: Was 80vh, which breaks layout on mobile */
 }
 
