@@ -16,7 +16,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-
+const searchRouter = require("./route/search.js");
 const listingsRouter = require("./route/listing.js");
 const reviewsRouter = require("./route/review.js");
 const userRouter = require("./route/user.js");
@@ -111,7 +111,7 @@ app.use((req, res, next) => {
 //     let registeredUser = await User.register(fakeuser,"helloworld");
 //     res.send(registeredUser);
 // });
-
+app.use("/search", searchRouter);
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);

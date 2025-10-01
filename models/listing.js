@@ -23,6 +23,23 @@ const listingSchema = new Schema({
     country:{
         type:String,
     },
+
+     category: {
+    type: String,
+    required: true, // you can make this optional if needed
+    enum: [
+      "Trending",
+      "Rooms",
+      "Iconic Cities",
+      "Mountains",
+      "Castles",
+      "Amazing Pools",
+      "Camping",
+      "Farms",
+      "Arctic",
+    ],
+  },
+
     reviews:[
         {
             type: Schema.Types.ObjectId,
@@ -46,6 +63,8 @@ const listingSchema = new Schema({
     }
 
 });
+
+listingSchema.index({ title: "text", description: "text", location: "text" });
 
 //post mongoose middleware for deleting listings and related reviwes also
 listingSchema.post("findOneAndDelete",async(listing)=>{
