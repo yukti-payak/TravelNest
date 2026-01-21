@@ -136,7 +136,3 @@ module.exports.deleteListing = async (req,res) =>{
     res.redirect("/listings");
 
 }
-module.exports.snapShot = (req, res) => {
-  res.render("listings/gallery.ejs");
-
-};
