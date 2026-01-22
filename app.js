@@ -110,7 +110,7 @@ app.use((err, req, res, next) => {
     let { status = 500, message = "Some Error Occurred" } = err;
     // Check if headers are already sent to prevent the app from crashing
     if (res.headersSent) {
-        return next(err);
+ return next(err);
     }
     res.status(status).render("error.ejs", { message });
 });
