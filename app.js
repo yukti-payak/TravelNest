@@ -47,10 +47,11 @@ app.use(express.static(path.join(__dirname, "/public")));
 // --- Session Store Setup ---
 const store = MongoStore.create({
     mongoUrl: dbUrl,
+ touchAfter: 24 * 3600,
     crypto: {
-        secret: process.env.SECRET,
+        secret: process.env.SECRET || "yukti1804",
     },
-    touchAfter: 24 * 3600,
+   
 });
 
 store.on("error", (err) => {
@@ -58,15 +59,15 @@ store.on("error", (err) => {
 });
 
 const sessionOptions = {
-    store,
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-    },
+    store,
+    secret: process.env.SECRET || "yukti1804", // Added fallback here too
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+    },
 };
 
 // --- Middleware Initialization (ORDER MATTERS) ---
