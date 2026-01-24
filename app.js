@@ -23,7 +23,7 @@ const userRouter = require("./route/user.js");
 
 const dbUrl = process.env.ATLASDB_URL;
 
-// --- Database Connection ---
+
 async function main() {
     await mongoose.connect(dbUrl);
 }
@@ -36,7 +36,7 @@ main()
         console.log("DB Connection Error:", err);
     });
 
-// --- Settings and Static Files ---
+
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -44,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
-// --- Session Store Setup ---
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
  touchAfter: 24 * 3600,
@@ -60,7 +60,7 @@ store.on("error", (err) => {
 
 const sessionOptions = {
     store,
-    secret: process.env.SECRET || "yukti1804", // Added fallback here too
+    secret: process.env.SECRET || "yukti1804", 
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -70,27 +70,27 @@ const sessionOptions = {
     },
 };
 
-// --- Middleware Initialization (ORDER MATTERS) ---
 
-app.use(session(sessionOptions)); // 1. Session must be first
-app.use(flash());                 // 2. Flash after session
 
-app.use(passport.initialize());   // 3. Passport initialize
-app.use(passport.session());      // 4. Passport session after express-session
+app.use(session(sessionOptions)); 
+app.use(flash());                 
+
+app.use(passport.initialize());   
+app.use(passport.session());      
 passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// 5. Global Variables Middleware (MUST be before routes)
+
 app.use((req, res, next) => {
     res.locals.successMsg = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currUser = req.user; // Fixes "currUser is not defined"
+    res.locals.currUser = req.user; 
     next();
 });
 
-// --- Routes ---
+
 
 app.get("/", (req, res) => {
     res.redirect("/listings");
@@ -101,7 +101,7 @@ app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
 
-// --- Error Handling ---
+
 
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Page not found!!"));
@@ -109,7 +109,7 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
     let { status = 500, message = "Some Error Occurred" } = err;
-    // Check if headers are already sent to prevent the app from crashing
+   
     if (res.headersSent) {
  return next(err);
     }
