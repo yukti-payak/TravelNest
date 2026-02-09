@@ -1,6 +1,6 @@
 
     mapboxgl.accessToken = mapToken;
-    // console.log(mapToken);
+    //console.log(mapToken);
         // console.log(coordinates);
     const map = new mapboxgl.Map({
          container: 'map', // container ID
